@@ -1,108 +1,117 @@
 <script lang="ts">
-	import { addTodo, deleteTodo, getTodos, toggleTodo } from './todos.remote'
+	import { getCounter, incrementCounter, resetCounter } from './counter.remote'
 
 	// this behaves like a regular function but uses RPC
-	const todos = getTodos()
+	const counter = getCounter()
 </script>
 
 <main>
-	<h1>Todo App</h1>
-
-	<!-- using enhance to customize how the form is progressively enhanced -->
-	<form
-		{...addTodo.enhance(async ({ form, submit, data }) => {
-			// get form data
-			const text = data.get('text')!.toString().trim()
-
-			// optimistic UI update
-			const release = await todos.override((todos) => {
-				return [...todos, { id: '0', text, done: false }]
-			})
-
-			try {
-				// submit form
-				await submit()
-			} finally {
-				// remove override
-				release()
-				// clear form
-				form.reset()
-			}
-		})}
-	>
-		<input type="text" name="text" placeholder="Add todo" autocomplete="off" />
-		<button type="submit">Add</button>
-		{#if addTodo.error}
-			<p class="error">{addTodo.error.message}</p>
-		{/if}
-	</form>
-
-	<ul>
-		<!-- async svelte ❤️ -->
-		{#each await todos as todo}
-			<!-- useful when you have multiple forms that use the same remote form action for reuse -->
-			{@const remove = deleteTodo.for(todo.id)}
-
-			<li>
-				<label>
-					<input
-						type="checkbox"
-						checked={todo.done}
-						onchange={async () => {
-							// this should be a form but we want to showcase using commands
-							const release = await todos.override((todos) => {
-								return todos.map((t) => (t.id === todo.id ? { ...t, done: !t.done } : t))
-							})
-
-							try {
-								await toggleTodo(todo.id)
-								// here `toggleTodo` doesn't do a single flight mutation, so we refresh on the client
-								await todos.refresh()
-							} finally {
-								// remove override
-								release()
-							}
-						}}
-					/>
-					<span class={{ done: todo.done }}>{todo.text}</span>
-				</label>
-
-				<!-- using enhance to customize how the form is progressively enhanced -->
-				<form
-					{...remove.enhance(async ({ submit }) => {
-						// optimistic UI update
-						const release = await todos.override((todos) => {
-							return todos.filter((t) => t.id !== todo.id)
-						})
-
-						try {
-							// submit form
-							await submit()
-						} catch {
-							// we catch the error to show the error inline instead of the nearest error page
-						} finally {
-							// remove override
-							release()
-						}
-					})}
-				>
-					<!-- this seems to have bugs 🐛  -->
-					{#if remove.error}
-						<span class="error">{remove.error.message}</span>
-					{/if}
-					<button name="id" value={todo.id}>Delete</button>
-				</form>
-			</li>
-		{/each}
-	</ul>
+	<h1>Global Counter</h1>
+	
+	<div class="counter-display">
+		<span class="counter-value">{await counter}</span>
+	</div>
+	
+	<div class="buttons">
+		<button 
+			onclick={async () => {
+				// optimistic UI update
+				const release = counter.override((current) => current + 1)
+				
+				try {
+					await incrementCounter()
+				} catch (error) {
+					console.error('Failed to increment:', error)
+				} finally {
+					release()
+				}
+			}}
+		>
+			Increment
+		</button>
+		
+		<button 
+			onclick={async () => {
+				// optimistic UI update
+				const release = counter.override(() => 0)
+				
+				try {
+					await resetCounter()
+				} catch (error) {
+					console.error('Failed to reset:', error)
+				} finally {
+					release()
+				}
+			}}
+		>
+			Reset
+		</button>
+	</div>
+	
+	<p class="description">
+		This counter is backed by SQLite and persists across page reloads!
+	</p>
 </main>
 
 <style>
-	.done {
-		text-decoration: line-through;
+	main {
+		text-align: center;
+		padding: 2rem;
+		max-width: 400px;
+		margin: 0 auto;
 	}
-
-	.error {
-		color: red;
+	
+	.counter-display {
+		margin: 2rem 0;
+		padding: 2rem;
+		background: #f5f5f5;
+		border-radius: 8px;
+		border: 2px solid #ddd;
+	}
+	
+	.counter-value {
+		font-size: 3rem;
+		font-weight: bold;
+		color: #333;
+	}
+	
+	.buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		margin: 2rem 0;
+	}
+	
+	button {
+		padding: 0.75rem 1.5rem;
+		font-size: 1rem;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.2s;
+	}
+	
+	button:first-child {
+		background: #4CAF50;
+		color: white;
+	}
+	
+	button:first-child:hover {
+		background: #45a049;
+	}
+	
+	button:last-child {
+		background: #f44336;
+		color: white;
+	}
+	
+	button:last-child:hover {
+		background: #da190b;
+	}
+	
+	.description {
+		color: #666;
+		font-style: italic;
+		margin-top: 2rem;
 	}
 </style>
