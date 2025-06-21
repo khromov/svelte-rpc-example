@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getFibonacci } from './fibonacci.remote'
-	const p = getFibonacci(10)
+	const fib10 = getFibonacci(10)
+	const fib100 = getFibonacci(100)
 </script>
 
 <main>
@@ -14,7 +15,23 @@
 	<div class="highlights-grid">
 		<div class="highlight-card">
 			<h3>F(10)</h3>
-			<p class="fib-value">{(await p)?.index}</p>
+			<p class="fib-value">{(await fib10)?.value}</p>
+			<p class="fib-info">
+				The 10th Fibonacci number has {(await fib10)?.value?.length} digits
+			</p>
+			<p class="timestamp">
+				Precomputed at: {new Date((await fib10)?.timestamp).toLocaleString()}
+			</p>
+		</div>
+		<div class="highlight-card">
+			<h3>F(100)</h3>
+			<p class="fib-value">{(await fib100)?.value}</p>
+			<p class="fib-info">
+				The 100th Fibonacci number has {(await fib100)?.value?.length} digits
+			</p>
+			<p class="timestamp">
+				Precomputed at: {new Date((await fib100)?.timestamp).toLocaleString()}
+			</p>
 		</div>
 	</div>
 </main>
@@ -70,6 +87,26 @@
 		font-size: 1.5rem;
 	}
 
+	.highlights-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+		gap: 2rem;
+	}
+	
+	.highlight-card {
+		background: var(--surface-3);
+		padding: 2rem;
+		border-radius: 8px;
+		border: 2px solid var(--brand);
+	}
+	
+	.highlight-card h3 {
+		color: var(--brand);
+		margin-bottom: 1rem;
+		text-align: center;
+		font-size: 1.5rem;
+	}
+	
 	.fib-value {
 		font-family: monospace;
 		font-size: 0.8rem;
@@ -82,5 +119,20 @@
 		padding: 1rem;
 		border-radius: 4px;
 		border: 1px solid var(--border-color);
+	}
+	
+	.fib-info {
+		color: var(--text-2);
+		font-size: 1rem;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 0.5rem;
+	}
+	
+	.timestamp {
+		color: var(--text-2);
+		font-size: 0.85rem;
+		font-style: italic;
+		text-align: center;
 	}
 </style>
