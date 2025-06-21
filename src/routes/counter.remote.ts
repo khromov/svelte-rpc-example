@@ -29,7 +29,6 @@ export const getCounter = query(async () => {
 })
 
 export const incrementCounter = command(async () => {
-	// Delay for 2 seconds
 	await new Promise((resolve) => setTimeout(resolve, 1000))
 
 	if (Math.random() < 0.2) {
