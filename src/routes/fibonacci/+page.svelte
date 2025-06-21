@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getFibonacci } from './fibonacci.remote'
+	const p = getFibonacci(10)
 </script>
 
 <main>
@@ -13,7 +14,7 @@
 	<div class="highlights-grid">
 		<div class="highlight-card">
 			<h3>F(10)</h3>
-			<p class="fib-value">{await getFibonacci(10)}</p>
+			<p class="fib-value">{(await p)?.index}</p>
 		</div>
 	</div>
 </main>
