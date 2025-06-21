@@ -1,29 +1,9 @@
 import { command, query } from '$app/server'
 import { error } from '@sveltejs/kit'
-import Database from 'better-sqlite3'
-
-// Initialize SQLite database
-const dbPath = './db/db.sqlite'
-const db = new Database(dbPath)
-
-// Create counter table if it doesn't exist
-db.exec(`
-  CREATE TABLE IF NOT EXISTS counter (
-    id INTEGER PRIMARY KEY,
-    value INTEGER NOT NULL DEFAULT 0
-  )
-`)
-
-const initCounter = db.prepare('INSERT OR IGNORE INTO counter (id, value) VALUES (1, 0)')
-initCounter.run()
-
-const getCounterStmt = db.prepare('SELECT value FROM counter WHERE id = 1')
-const incrementCounterStmt = db.prepare('UPDATE counter SET value = value + 1 WHERE id = 1')
-const resetCounterStmt = db.prepare('UPDATE counter SET value = 0 WHERE id = 1')
+import { getCounterValue, incrementCounterValue, resetCounterValue } from '$lib/db/counter'
 
 export const getCounter = query(async () => {
-	const result = getCounterStmt.get() as { value: number }
-	return result.value
+	return getCounterValue()
 })
 
 export const incrementCounter = command(async () => {
@@ -34,7 +14,7 @@ export const incrementCounter = command(async () => {
 		error(500, 'This is a random error when deleting a todo! 🎉')
 	}
 
-	incrementCounterStmt.run()
+	incrementCounterValue()
 
 	// Refresh the counter query for single-flight mutation
 	await getCounter().refresh()
@@ -43,7 +23,7 @@ export const incrementCounter = command(async () => {
 })
 
 export const resetCounter = command(async () => {
-	resetCounterStmt.run()
+	resetCounterValue()
 
 	// Refresh the counter query for single-flight mutation
 	await getCounter().refresh()
