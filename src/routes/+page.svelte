@@ -63,20 +63,21 @@
 		padding: 2rem;
 		max-width: 400px;
 		margin: 0 auto;
+		color: var(--text-1);
 	}
 	
 	.counter-display {
 		margin: 2rem 0;
 		padding: 2rem;
-		background: #f5f5f5;
+		background: var(--surface-2);
 		border-radius: 8px;
-		border: 2px solid #ddd;
+		border: 2px solid var(--border-color);
 	}
 	
 	.counter-value {
 		font-size: 3rem;
 		font-weight: bold;
-		color: #333;
+		color: var(--text-1);
 	}
 	
 	.buttons {
@@ -114,7 +115,7 @@
 	}
 	
 	.description {
-		color: #666;
+		color: var(--text-2);
 		font-style: italic;
 		margin-top: 2rem;
 	}
