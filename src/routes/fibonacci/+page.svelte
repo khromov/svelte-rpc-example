@@ -42,11 +42,15 @@
 		margin: 0 auto;
 		padding: 2rem;
 		color: var(--text-1);
+		text-align: center;
 	}
 
 	h1 {
 		color: var(--text-1);
 		text-align: center;
+		margin: 0 0 2rem 0;
+		width: 100%;
+		max-inline-size: none;
 	}
 
 	.description {
@@ -57,6 +61,9 @@
 		border-left: 4px solid var(--brand);
 		margin-bottom: 2rem;
 		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: fit-content;
 	}
 
 	.description code {
