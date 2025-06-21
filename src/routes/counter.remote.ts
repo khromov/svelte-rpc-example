@@ -14,11 +14,9 @@ db.exec(`
   )
 `)
 
-// Initialize counter if it doesn't exist
 const initCounter = db.prepare('INSERT OR IGNORE INTO counter (id, value) VALUES (1, 0)')
 initCounter.run()
 
-// Prepared statements for better performance
 const getCounterStmt = db.prepare('SELECT value FROM counter WHERE id = 1')
 const incrementCounterStmt = db.prepare('UPDATE counter SET value = value + 1 WHERE id = 1')
 const resetCounterStmt = db.prepare('UPDATE counter SET value = 0 WHERE id = 1')
@@ -29,7 +27,8 @@ export const getCounter = query(async () => {
 })
 
 export const incrementCounter = command(async () => {
-	await new Promise((resolve) => setTimeout(resolve, 1000))
+	const randomDelay = Math.random() * 2500
+	await new Promise((resolve) => setTimeout(resolve, randomDelay))
 
 	if (Math.random() < 0.2) {
 		error(500, 'This is a random error when deleting a todo! 🎉')
