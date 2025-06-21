@@ -499,3 +499,48 @@ We intend to add client-side batching (so that data from multiple queries is fet
 ### Streaming
 
 For real-time applications, we have a sketch of a primitive for streaming data from the server. We’d love to hear your use cases.
+
+END OF RFC
+
+## Styling with Open Props
+
+This project uses **Open Props**, a CSS custom properties library that provides expertly crafted design tokens for consistent and harmonious web designs.
+
+### What is Open Props?
+
+Open Props is a framework-agnostic CSS library that offers "Supercharged CSS variables" designed to help developers create consistent UIs. It provides a comprehensive set of design tokens covering colors, gradients, shadows, typography, animations, easing functions, sizes, borders, and media queries.
+
+### Key Features
+
+- **Lightweight**: Only 4.0 kB when Brotli compressed
+- **Non-prescriptive**: Allows incremental adoption and easy customization
+- **Framework-agnostic**: Works with any development setup
+- **Consistent**: Expertly crafted design tokens ensure visual harmony
+- **Flexible**: Available as CSS, PostCSS, JSON, or JavaScript
+
+### Usage in This Project
+
+The project imports Open Props in `src/app.css`:
+
+```css
+@import 'open-props/style';
+@import 'open-props/normalize';
+@import 'open-props/buttons';
+```
+
+This provides access to CSS custom properties like:
+
+- `var(--surface-1)`, `var(--surface-2)`, `var(--surface-3)` for layered backgrounds
+- `var(--text-1)`, `var(--text-2)` for text hierarchy
+- `var(--brand)`, `var(--brand-hover)` for brand colors
+- `var(--border-color)` for consistent borders
+- Color scale variables like `var(--green-2)`, `var(--red-6)`, etc.
+
+### Resources
+
+- **Official Website**: https://open-props.style/
+- **GitHub Repository**: https://github.com/argyleink/open-props
+- **Open Props UI Components**: https://open-props-ui.netlify.app/
+
+Open Props enables rapid UI development while maintaining design consistency across the application without requiring a heavy CSS framework.
+EOF < /dev/null
