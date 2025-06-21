@@ -20,12 +20,12 @@ export const incrementCounterForm = form(async (data: FormData) => {
 	}
 
 	incrementCounterValue()
-	
+
 	// Refresh the counter query for single-flight mutation
 	await getCounter().refresh()
 
-	return { 
-		success: true, 
+	return {
+		success: true,
 		message: 'Counter incremented successfully! 🎉',
 		value: getCounterValue()
 	}
@@ -33,14 +33,13 @@ export const incrementCounterForm = form(async (data: FormData) => {
 
 export const resetCounterForm = form(async (data: FormData) => {
 	resetCounterValue()
-	
+
 	// Refresh the counter query for single-flight mutation
 	await getCounter().refresh()
 
-	return { 
-		success: true, 
+	return {
+		success: true,
 		message: 'Counter reset to 0! ↺',
 		value: 0
 	}
 })
-

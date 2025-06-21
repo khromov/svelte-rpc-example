@@ -99,21 +99,21 @@
 		grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
 		gap: 2rem;
 	}
-	
+
 	.highlight-card {
 		background: var(--surface-3);
 		padding: 2rem;
 		border-radius: 8px;
 		border: 2px solid var(--brand);
 	}
-	
+
 	.highlight-card h3 {
 		color: var(--brand);
 		margin-bottom: 1rem;
 		text-align: center;
 		font-size: 1.5rem;
 	}
-	
+
 	.fib-value {
 		font-family: monospace;
 		font-size: 0.8rem;
@@ -127,7 +127,7 @@
 		border-radius: 4px;
 		border: 1px solid var(--border-color);
 	}
-	
+
 	.fib-info {
 		color: var(--text-2);
 		font-size: 1rem;
@@ -135,7 +135,7 @@
 		text-align: center;
 		margin-bottom: 0.5rem;
 	}
-	
+
 	.timestamp {
 		color: var(--text-2);
 		font-size: 0.85rem;

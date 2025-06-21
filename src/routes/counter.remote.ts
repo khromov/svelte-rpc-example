@@ -1,6 +1,11 @@
 import { command, query } from '$app/server'
 import { error, validate } from '@sveltejs/kit'
-import { getCounterValue, incrementCounterValue, resetCounterValue, setCounterValue } from '$lib/db/counter'
+import {
+	getCounterValue,
+	incrementCounterValue,
+	resetCounterValue,
+	setCounterValue
+} from '$lib/db/counter'
 import { z } from 'zod'
 
 export const getCounter = query(async () => {
@@ -39,18 +44,15 @@ const setCounterSchema = z.object({
 
 // New validated command to set counter to specific value
 export const setCounter = command(
-	validate(
-		setCounterSchema,
-		async ({ value }) => {
-			// value is typed correctly. if the function
-			// was called with bad arguments, it will
-			// result in a 422 response
-			setCounterValue(value)
+	validate(setCounterSchema, async ({ value }) => {
+		// value is typed correctly. if the function
+		// was called with bad arguments, it will
+		// result in a 422 response
+		setCounterValue(value)
 
-			// Refresh the counter query for single-flight mutation
-			await getCounter().refresh()
+		// Refresh the counter query for single-flight mutation
+		await getCounter().refresh()
 
-			return { success: true, value }
-		}
-	)
+		return { success: true, value }
+	})
 )
