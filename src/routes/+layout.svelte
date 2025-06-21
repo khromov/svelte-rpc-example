@@ -16,7 +16,7 @@
 
 <svelte:boundary>
 	{#snippet failed(error, reset)}
-		<button onclick={reset}>oops! try again</button>
+		<button onclick={reset}>{error}Oops! try again</button>
 	{/snippet}
 
 	<!-- suspense -->
@@ -39,7 +39,7 @@
 		top: 0;
 		z-index: 10;
 	}
-	
+
 	.main-nav a {
 		color: var(--text-2);
 		text-decoration: none;
@@ -47,12 +47,12 @@
 		border-radius: 4px;
 		transition: all 0.2s;
 	}
-	
+
 	.main-nav a:hover {
 		color: var(--text-1);
 		background: var(--surface-3);
 	}
-	
+
 	.main-nav a.active {
 		color: var(--brand);
 		background: var(--surface-3);
