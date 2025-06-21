@@ -9,7 +9,7 @@ export const getFibonacci = prerender(
 
 		return {
 			index,
-			value: value.toString(), // Convert to string for JSON serialization
+			value: value.toString(),
 			timestamp: new Date().toISOString()
 		}
 	},

@@ -6,34 +6,14 @@
 	<h1>Fibonacci Precomputed Values</h1>
 
 	<p class="description">
-		This page demonstrates the <code>prerender</code> remote function with the 1,000th and 10,000th Fibonacci
+		This page demonstrates the <code>prerender</code> remote function with the 10th and 100th Fibonacci
 		numbers precomputed at build time.
 	</p>
 
 	<div class="highlights-grid">
 		<div class="highlight-card">
 			<h3>F(10)</h3>
-			<p class="fib-value">{await getFibonacci(10).then((r) => r.value)}</p>
-			<p class="fib-info">
-				The 1000th Fibonacci number has {await getFibonacci(1000).then((r) => r.value.length)} digits
-			</p>
-			<p class="timestamp">
-				Precomputed at: {await getFibonacci(1000).then((r) =>
-					new Date(r.timestamp).toLocaleString()
-				)}
-			</p>
-		</div>
-		<div class="highlight-card">
-			<h3>F(100)</h3>
-			<p class="fib-value">{await getFibonacci(100).then((r) => r.value)}</p>
-			<p class="fib-info">
-				The 10,000th Fibonacci number has {await getFibonacci(10000).then((r) => r.value.length)} digits
-			</p>
-			<p class="timestamp">
-				Precomputed at: {await getFibonacci(10000).then((r) =>
-					new Date(r.timestamp).toLocaleString()
-				)}
-			</p>
+			<p class="fib-value">{await getFibonacci(10)}</p>
 		</div>
 	</div>
 </main>
@@ -101,20 +81,5 @@
 		padding: 1rem;
 		border-radius: 4px;
 		border: 1px solid var(--border-color);
-	}
-
-	.fib-info {
-		color: var(--text-2);
-		font-size: 1rem;
-		font-weight: bold;
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
-
-	.timestamp {
-		color: var(--text-2);
-		font-size: 0.85rem;
-		font-style: italic;
-		text-align: center;
 	}
 </style>
