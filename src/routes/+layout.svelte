@@ -1,9 +1,12 @@
 <script lang="ts">
 	import '../app.css'
 	import { page } from '$app/stores'
+	import { Toaster } from 'svelte-french-toast'
 
 	let { children } = $props()
 </script>
+
+<Toaster />
 
 <nav class="main-nav">
 	<a href="/" class:active={$page.route.id === '/'}>Counter</a>
@@ -28,10 +31,13 @@
 	.main-nav {
 		display: flex;
 		gap: 1rem;
-		padding: 1rem;
+		padding: 0.75rem 1rem;
 		background: var(--surface-2);
 		border-bottom: 1px solid var(--border-color);
 		justify-content: center;
+		position: sticky;
+		top: 0;
+		z-index: 10;
 	}
 	
 	.main-nav a {

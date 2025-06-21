@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { getCounter, incrementCounter, resetCounter } from './counter.remote'
-	import toast, { Toaster } from 'svelte-french-toast'
+	import toast from 'svelte-french-toast'
 
 	// this behaves like a regular function but uses RPC
 	const counter = getCounter()
 </script>
-
-<Toaster />
 
 <main>
 	<h1>Global Counter</h1>
@@ -61,7 +59,7 @@
 	main {
 		text-align: center;
 		padding: 2rem;
-		max-width: 400px;
+		max-width: 600px;
 		margin: 0 auto;
 		color: var(--text-1);
 	}
