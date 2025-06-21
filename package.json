@@ -28,6 +28,12 @@
 	"dependencies": {
 		"better-sqlite3": "^11.3.0",
 		"open-props": "^1.7.15",
-		"svelte-french-toast": "^1.2.0"
+		"svelte-french-toast": "^1.2.0",
+		"zod": "^3.25.67"
+	},
+	"overrides": {
+		"svelte-french-toast": {
+			"svelte": "$svelte"
+		}
 	}
 }

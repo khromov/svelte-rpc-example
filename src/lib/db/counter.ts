@@ -18,6 +18,7 @@ initCounter.run()
 const getCounterStmt = db.prepare('SELECT value FROM counter WHERE id = 1')
 const incrementCounterStmt = db.prepare('UPDATE counter SET value = value + 1 WHERE id = 1')
 const resetCounterStmt = db.prepare('UPDATE counter SET value = 0 WHERE id = 1')
+const setCounterStmt = db.prepare('UPDATE counter SET value = ? WHERE id = 1')
 
 export function getCounterValue(): number {
 	const result = getCounterStmt.get() as { value: number }
@@ -30,4 +31,8 @@ export function incrementCounterValue(): void {
 
 export function resetCounterValue(): void {
 	resetCounterStmt.run()
+}
+
+export function setCounterValue(value: number): void {
+	setCounterStmt.run(value)
 }

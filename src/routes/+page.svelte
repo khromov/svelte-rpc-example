@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { getCounter, incrementCounter, resetCounter } from './counter.remote'
+	import { getCounter, incrementCounter, resetCounter, setCounter } from './counter.remote'
 	import toast from 'svelte-french-toast'
 
 	// this behaves like a regular function but uses RPC
 	const counter = getCounter()
+	
+	let inputValue = $state('')
 </script>
 
 <main>
@@ -48,6 +50,49 @@
 		>
 			Reset
 		</button>
+	</div>
+	
+	<div class="set-counter">
+		<h2>Set Counter (With Validation)</h2>
+		<p class="validation-info">Enter a number between 0 and 1000</p>
+		<div class="input-group">
+			<input 
+				type="number" 
+				bind:value={inputValue} 
+				placeholder="Enter value (0-1000)"
+				min="0"
+				max="1000"
+			/>
+			<button 
+				onclick={async () => {
+					const value = parseInt(inputValue)
+					if (isNaN(value)) {
+						toast.error('Please enter a valid number')
+						return
+					}
+					
+					// optimistic UI update
+					const release = counter.override(() => value)
+					
+					try {
+						const result = await setCounter({ value })
+						toast.success(`Counter set to ${result.value}`)
+						inputValue = ''
+					} catch (error) {
+						console.error('Failed to set counter:', error)
+						if (error.status === 422) {
+							toast.error('Validation failed: Number must be between 0 and 1000')
+						} else {
+							toast.error('Failed to set counter')
+						}
+					} finally {
+						release()
+					}
+				}}
+			>
+				Set Value
+			</button>
+		</div>
 	</div>
 	
 	<p class="description">
@@ -112,6 +157,51 @@
 		background: #da190b;
 	}
 	
+	.set-counter {
+		margin: 2rem 0;
+		padding: 1.5rem;
+		background: var(--surface-2);
+		border-radius: 8px;
+		border: 2px solid var(--brand);
+	}
+	
+	.set-counter h2 {
+		margin: 0 0 0.5rem 0;
+		color: var(--brand);
+	}
+	
+	.validation-info {
+		color: var(--text-2);
+		font-size: 0.9rem;
+		margin-bottom: 1rem;
+	}
+	
+	.input-group {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	
+	.input-group input {
+		padding: 0.75rem;
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--surface-1);
+		color: var(--text-1);
+		flex: 1;
+		min-width: 200px;
+	}
+	
+	.input-group button {
+		background: var(--brand);
+		color: var(--text-on-brand);
+	}
+	
+	.input-group button:hover {
+		background: var(--brand-hover);
+	}
+
 	.description {
 		color: var(--text-2);
 		font-style: italic;
