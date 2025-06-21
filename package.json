@@ -17,6 +17,7 @@
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/kit": "file:packages/sveltejs-kit-2.21.1.tgz",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@types/better-sqlite3": "^7.6.13",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "https://pkg.pr.new/svelte@15844",

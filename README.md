@@ -15,11 +15,11 @@ git clone https://github.com/mattcroat/svelte-rpc-example.git
 📦️ Install dependencies:
 
 ```bash
-pnpm i
+npm install
 ```
 
-💽 Run development server:
+💽 Build for production:
 
 ```bash
-pnpm dev
+npm run build
 ```

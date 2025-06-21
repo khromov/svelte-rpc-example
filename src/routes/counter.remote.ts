@@ -1,4 +1,5 @@
 import { command, query } from '$app/server'
+import { error } from '@sveltejs/kit'
 import Database from 'better-sqlite3'
 
 // Initialize SQLite database
@@ -23,24 +24,26 @@ const incrementCounterStmt = db.prepare('UPDATE counter SET value = value + 1 WH
 const resetCounterStmt = db.prepare('UPDATE counter SET value = 0 WHERE id = 1')
 
 export const getCounter = query(async () => {
-  const result = getCounterStmt.get() as { value: number }
-  return result.value
+	const result = getCounterStmt.get() as { value: number }
+	return result.value
 })
 
 export const incrementCounter = command(async () => {
-  incrementCounterStmt.run()
-  
-  // Refresh the counter query for single-flight mutation
-  await getCounter().refresh()
-  
-  return { success: true }
+	if (Math.random() < 0.2) error(500, 'This is a random error when deleting a todo! 🎉')
+
+	incrementCounterStmt.run()
+
+	// Refresh the counter query for single-flight mutation
+	await getCounter().refresh()
+
+	return { success: true }
 })
 
 export const resetCounter = command(async () => {
-  resetCounterStmt.run()
-  
-  // Refresh the counter query for single-flight mutation
-  await getCounter().refresh()
-  
-  return { success: true }
+	resetCounterStmt.run()
+
+	// Refresh the counter query for single-flight mutation
+	await getCounter().refresh()
+
+	return { success: true }
 })
