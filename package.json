@@ -27,6 +27,7 @@
 	},
 	"dependencies": {
 		"better-sqlite3": "^11.3.0",
-		"open-props": "^1.7.15"
+		"open-props": "^1.7.15",
+		"svelte-french-toast": "^1.2.0"
 	}
 }

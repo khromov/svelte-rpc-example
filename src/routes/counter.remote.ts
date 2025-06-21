@@ -29,7 +29,12 @@ export const getCounter = query(async () => {
 })
 
 export const incrementCounter = command(async () => {
-	if (Math.random() < 0.2) error(500, 'This is a random error when deleting a todo! 🎉')
+	// Delay for 2 seconds
+	await new Promise((resolve) => setTimeout(resolve, 1000))
+
+	if (Math.random() < 0.2) {
+		error(500, 'This is a random error when deleting a todo! 🎉')
+	}
 
 	incrementCounterStmt.run()
 
