@@ -2,7 +2,6 @@
 	import { getCounter, incrementCounter, resetCounter, setCounter } from './counter.remote'
 	import toast from 'svelte-french-toast'
 
-	// this behaves like a regular function but uses RPC
 	const counter = getCounter()
 
 	let inputValue = $state('')
