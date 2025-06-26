@@ -1,23 +1,24 @@
 <script lang="ts">
-	import { getPi } from './pi.remote'
-	const pi200 = getPi(200)
+	import { getFibonacci } from './fibonacci.remote'
+	const fib = getFibonacci(5000)
 </script>
 
 <main>
-	<h1>Pi (π) Precomputed Value</h1>
+	<h1>Fibonacci Precomputed Value</h1>
 
 	<p class="description">
-		This page demonstrates the <code>prerender</code> remote function with Pi computed to 200 digits at build time using the <code>generate-pi</code> package.
+		This page demonstrates the <code>prerender</code> remote function with the 100th Fibonacci
+		number computed at build time using the <code>fibonacci</code> package.
 	</p>
 
 	<div class="highlight-card">
-		<h3>π to 200 digits</h3>
-		<p class="pi-value">{(await pi200)?.value}</p>
-		<div class="pi-stats">
-			<p class="pi-info">Total digits: {(await pi200)?.stats.totalDigits}</p>
+		<h3>F(5000)</h3>
+		<p class="fib-value">{(await fib)?.value}</p>
+		<div class="fib-stats">
+			<p class="fib-info">Total digits: {(await fib)?.stats.totalDigits}</p>
 		</div>
 		<p class="timestamp">
-			Precomputed at: {new Date((await pi200)?.timestamp).toLocaleString()}
+			Precomputed at: {new Date((await fib)?.timestamp).toLocaleString()}
 		</p>
 	</div>
 </main>
@@ -77,7 +78,7 @@
 		max-inline-size: none !important;
 	}
 
-	.pi-value {
+	.fib-value {
 		font-family: monospace;
 		font-size: 0.8rem;
 		color: var(--text-1);
@@ -94,7 +95,7 @@
 		max-inline-size: none !important;
 	}
 
-	.pi-stats {
+	.fib-stats {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
@@ -102,7 +103,7 @@
 		margin-bottom: 1rem;
 	}
 
-	.pi-info {
+	.fib-info {
 		color: var(--text-2);
 		font-size: 0.9rem;
 		font-weight: bold;
@@ -122,11 +123,11 @@
 	}
 
 	@media (max-width: 768px) {
-		.pi-value {
+		.fib-value {
 			font-size: 0.7rem;
 		}
-		
-		.pi-stats {
+
+		.fib-stats {
 			flex-direction: column;
 			align-items: center;
 		}
