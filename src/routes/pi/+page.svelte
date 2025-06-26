@@ -74,6 +74,7 @@
 		margin-bottom: 1rem;
 		text-align: center;
 		font-size: 1.5rem;
+		max-inline-size: none !important;
 	}
 
 	.pi-value {
@@ -90,6 +91,7 @@
 		border: 1px solid var(--border-color);
 		text-align: left;
 		line-height: 1.4;
+		max-inline-size: none !important;
 	}
 
 	.pi-stats {
@@ -116,6 +118,7 @@
 		font-size: 0.85rem;
 		font-style: italic;
 		text-align: center;
+		max-inline-size: none !important;
 	}
 
 	@media (max-width: 768px) {
