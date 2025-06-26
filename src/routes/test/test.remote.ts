@@ -1,15 +1,15 @@
 import { prerender } from '$app/server'
-import { calculateFibonacci } from '$lib/fibonacci'
+import { calculatePi } from '$lib/pi'
 
-// Prerender single fibonacci numbers with specific entries
-export const getFibonacci = prerender(
-	async (index: number) => {
-		console.log(`Calculating Fibonacci for index: ${index}`)
-		const value = calculateFibonacci(index)
+// Prerender Pi values with specific digit precisions
+export const getPi = prerender(
+	async (digits: number) => {
+		console.log(`Computing Pi to ${digits} digits`)
+		const value = calculatePi(digits)
 
 		return {
-			index,
-			value: value.toString(),
+			digits,
+			value,
 			timestamp: new Date().toISOString()
 		}
 	},

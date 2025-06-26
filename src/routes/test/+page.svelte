@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getFibonacci } from './test.remote'
+	import { getPi } from './test.remote'
 </script>
 
-{await getFibonacci(10)}
+{await getPi(10)}
