@@ -9,6 +9,7 @@ This is a Svelte Remote Functions example demonstrating the experimental RPC (Re
 ## Development Commands
 
 **IMPORTANT**: Never run `npm run dev` - only use `npm run build` to check for errors.
+**IMPORTANT**: All dependencies should be installed as devDependencies
 
 - `npm run build` - Build for production and check for errors
 - `npm run preview` - Preview production build

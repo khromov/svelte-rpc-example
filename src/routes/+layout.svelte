@@ -11,7 +11,7 @@
 <nav class="main-nav">
 	<a href="/" class:active={$page.route.id === '/'}>Counter</a>
 	<a href="/counter-form" class:active={$page.route.id === '/counter-form'}>Counter (Form)</a>
-	<a href="/fibonacci" class:active={$page.route.id === '/fibonacci'}>Fibonacci</a>
+	<a href="/pi" class:active={$page.route.id === '/pi'}>Pi</a>
 </nav>
 
 <svelte:boundary>
